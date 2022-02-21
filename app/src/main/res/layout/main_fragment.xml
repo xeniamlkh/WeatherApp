@@ -14,75 +14,20 @@
         android:gravity="left"
         android:text="@string/choose_a_city"
         android:textSize="@dimen/basic_text_size"
-        app:layout_constraintBottom_toTopOf="@id/moscow_button"
+        app:layout_constraintBottom_toTopOf="@id/recycler_view_main_frg"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/moscow_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="@string/moscow"
-        android:textSize="@dimen/basic_text_size"
-        app:layout_constraintBottom_toTopOf="@id/new_york_button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/choose_city_title"
-        />
-
-    <Button
-        android:id="@+id/new_york_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="@string/new_york"
-        android:textSize="@dimen/basic_text_size"
-        app:layout_constraintBottom_toTopOf="@id/helsinki_button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/moscow_button"
-        />
-
-    <Button
-        android:id="@+id/helsinki_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="@string/helsinki"
-        android:textSize="@dimen/basic_text_size"
-        app:layout_constraintBottom_toTopOf="@id/city"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/new_york_button"
-        />
-
-    <TextView
-        android:id="@+id/city"
-        android:layout_width="0dp"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view_main_frg"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:gravity="center"
-        android:textSize="@dimen/basic_text_size"
-        app:layout_constraintBottom_toTopOf="@id/temperature"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/helsinki_button"
-        app:layout_constraintVertical_weight="1"
-        tools:text="City" />
-
-    <TextView
-        android:id="@+id/temperature"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:gravity="center"
-        android:textSize="@dimen/basic_text_size"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/city"
-        app:layout_constraintVertical_weight="1"
-        tools:text="Temperature" />
+        app:layout_constraintTop_toBottomOf="@id/choose_city_title"
+        tools:listitem="@layout/item_card_view"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

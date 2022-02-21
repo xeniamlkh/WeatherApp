@@ -5,5 +5,7 @@
     <string name="moscow">Moscow</string>
     <string name="new_york">New York</string>
     <string name="helsinki">Helsinki</string>
+    <string name="temperature_today">Temperature today:</string>
+    <string name="city_name">City Name:</string>
 
 </resources>
