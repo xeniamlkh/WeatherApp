@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import ru.gb.weatherapp.databinding.ItemFragmentBinding
 import ru.gb.weatherapp.viewmodel.MainViewModel
 
@@ -17,11 +16,10 @@ class ItemFragment : Fragment() {
         fun newInstance() = ItemFragment()
     }
 
-    //private lateinit var viewModel: MainViewModel
     private val viewModel: MainViewModel by activityViewModels()
 
     private var _binding: ItemFragmentBinding? = null
-    private val binding get() = _binding!!
+    private val binding get() = _binding
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -29,15 +27,13 @@ class ItemFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = ItemFragmentBinding.inflate(inflater, container, false)
-        val view = binding.root
-
-        //viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
+        val view = binding?.root
 
         viewModel.city.observe(viewLifecycleOwner, Observer { newCity ->
-            binding.city.text = newCity.toString()
+            binding?.city?.text = newCity.toString()
         })
         viewModel.temp.observe(viewLifecycleOwner, Observer { newTemp ->
-            binding.temperature.text = newTemp.toString()
+            binding?.temperature?.text = newTemp.toString()
         })
 
         return view

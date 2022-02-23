@@ -7,7 +7,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import ru.gb.weatherapp.R
@@ -20,24 +19,21 @@ class MainFragment : Fragment() {
         fun newInstance() = MainFragment()
     }
 
-    //private lateinit var viewModel: MainViewModel
     private val viewModel: MainViewModel by activityViewModels()
 
     private var _binding: MainFragmentBinding? = null
-    private val binding get() = _binding!!
+    private val binding get() = _binding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
+    ): View? {
         _binding = MainFragmentBinding.inflate(inflater, container, false)
-        val view = binding.root
-
-        //viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
+        val view = binding?.root
 
         var adapter = CitiesRecycleAdapter()
-        binding.recyclerViewMainFrg.layoutManager = LinearLayoutManager(activity)
-        binding.recyclerViewMainFrg.adapter = adapter
+        binding?.recyclerViewMainFrg?.layoutManager = LinearLayoutManager(activity)
+        binding?.recyclerViewMainFrg?.adapter = adapter
 
         adapter.setOnItemClickListener(object : CitiesRecycleAdapter.OnItemClickListener{
             override fun onItemClick(position: Int) {

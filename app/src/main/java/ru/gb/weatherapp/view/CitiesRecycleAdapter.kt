@@ -25,6 +25,7 @@ class CitiesRecycleAdapter() : RecyclerView.Adapter<CitiesRecycleAdapter.CityVie
 
     class CityViewHolder(itemView: View, listener: OnItemClickListener) :
         RecyclerView.ViewHolder(itemView) {
+
         var city: TextView = itemView.findViewById(R.id.city_item)
 
         init {
@@ -45,5 +46,4 @@ class CitiesRecycleAdapter() : RecyclerView.Adapter<CitiesRecycleAdapter.CityVie
     }
 
     override fun getItemCount() = data.size
-
 }

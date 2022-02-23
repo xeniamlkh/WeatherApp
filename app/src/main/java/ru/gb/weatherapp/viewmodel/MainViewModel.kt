@@ -28,7 +28,7 @@ class MainViewModel : ViewModel() {
 
     fun setCity(position: Int) {
         _city.value = repositoryCall.getCity(position)
-        getAverageTemp(_city.value!!)
+        _city.value?.let { getAverageTemp(it) }
     }
 
     private fun getAverageTemp(city: String) {
@@ -42,15 +42,11 @@ class MainViewModel : ViewModel() {
             "Nicosia" -> _temp.value = repositoryCall.getterOfNicosiaTemp(_month)
             "Oslo" -> _temp.value = repositoryCall.getterOfOsloTemp(_month)
             "Paris" -> _temp.value = repositoryCall.getterOfParisTemp(_month)
-            "Prague"-> _temp.value = repositoryCall.getterOfPragueTemp(_month)
+            "Prague" -> _temp.value = repositoryCall.getterOfPragueTemp(_month)
             "Sofia" -> _temp.value = repositoryCall.getterOfSofiaTemp(_month)
             "Tallinn" -> _temp.value = repositoryCall.getterOfTallinnTemp(_month)
             "Vienna" -> _temp.value = repositoryCall.getterOfViennaTemp(_month)
             "Warsaw" -> _temp.value = repositoryCall.getterOfWarsawTemp(_month)
-
-            //"New York" -> _temp.value = repositoryCall.getterOfNewYorkTemp(_month)
-
         }
     }
-
 }
