@@ -32,6 +32,7 @@ class ItemFragment : Fragment() {
         viewModel.city.observe(viewLifecycleOwner, Observer { newCity ->
             binding?.city?.text = newCity.toString()
         })
+
         viewModel.temp.observe(viewLifecycleOwner, Observer { newTemp ->
             binding?.temperature?.text = newTemp.toString()
         })

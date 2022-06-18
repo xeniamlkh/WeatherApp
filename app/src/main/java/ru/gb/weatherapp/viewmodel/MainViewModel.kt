@@ -5,8 +5,12 @@ package ru.gb.weatherapp.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import ru.gb.weatherapp.model.Repository
-import java.util.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import ru.gb.weatherapp.model.local.CitiesInfo
+import ru.gb.weatherapp.model.network.WeatherDTO
+import ru.gb.weatherapp.model.network.NetworkConnect
 
 class MainViewModel : ViewModel() {
 
@@ -18,35 +22,45 @@ class MainViewModel : ViewModel() {
     val temp: LiveData<String>
         get() = _temp
 
-    private val _month = Calendar.MONTH
-
-    private val repositoryCall = Repository()
+    private val cityReturnData = CitiesInfo()
 
     init {
         _city.value = ""
+        _temp.value = ""
     }
 
     fun setCity(position: Int) {
-        _city.value = repositoryCall.getCity(position)
-        _city.value?.let { getAverageTemp(it) }
-    }
+        _city.value = cityReturnData.getCity(position)
+        //_city.value?.let { getAverageTemp(it) }
+        var latitude = cityReturnData.getterOfCoordinates(position)?.lat
+        var longtitude = cityReturnData.getterOfCoordinates(position)?.lon
+        println("!! Coordinates: $latitude ; $longtitude")
 
-    private fun getAverageTemp(city: String) {
-        when (city) {
-            "Berlin" -> _temp.value = repositoryCall.getterOfBerlinTemp(_month)
-            "Brussels" -> _temp.value = repositoryCall.getterOfBrusselsTemp(_month)
-            "Helsinki" -> _temp.value = repositoryCall.getterOfHelsinkiTemp(_month)
-            "Lyon" -> _temp.value = repositoryCall.getterOfLyonTemp(_month)
-            "Minsk" -> _temp.value = repositoryCall.getterOfMinskTemp(_month)
-            "Moscow" -> _temp.value = repositoryCall.getterOfMoscowTemp(_month)
-            "Nicosia" -> _temp.value = repositoryCall.getterOfNicosiaTemp(_month)
-            "Oslo" -> _temp.value = repositoryCall.getterOfOsloTemp(_month)
-            "Paris" -> _temp.value = repositoryCall.getterOfParisTemp(_month)
-            "Prague" -> _temp.value = repositoryCall.getterOfPragueTemp(_month)
-            "Sofia" -> _temp.value = repositoryCall.getterOfSofiaTemp(_month)
-            "Tallinn" -> _temp.value = repositoryCall.getterOfTallinnTemp(_month)
-            "Vienna" -> _temp.value = repositoryCall.getterOfViennaTemp(_month)
-            "Warsaw" -> _temp.value = repositoryCall.getterOfWarsawTemp(_month)
+        val mCallMethodVar = longtitude?.let {
+            latitude?.let { it1 ->
+                NetworkConnect
+                    .returnToVmFunction()
+                    .getTemperature(
+                        latitude = it1, longtitude = it,
+                        language = "en_US"
+                    )
+            }
         }
+
+        mCallMethodVar?.enqueue(object : Callback<WeatherDTO> {
+
+            override fun onResponse(call: Call<WeatherDTO>, response: Response<WeatherDTO>) {
+                if (!response.isSuccessful) {
+                    _temp.value = "ERROR: ${response.code()}"
+                }
+                val body = response.body()
+                _temp.value = body?.fact?.temp.toString()
+            }
+
+            override fun onFailure(call: Call<WeatherDTO>, t: Throwable) {
+                _temp.value = "ERROR: ${t.message}"
+            }
+        })
+
     }
 }

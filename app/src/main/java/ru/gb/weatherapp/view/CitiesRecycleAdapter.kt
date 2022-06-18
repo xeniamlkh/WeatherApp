@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import ru.gb.weatherapp.R
-import ru.gb.weatherapp.model.Repository
+import ru.gb.weatherapp.model.local.CitiesInfo
 
 class CitiesRecycleAdapter() : RecyclerView.Adapter<CitiesRecycleAdapter.CityViewHolder>() {
 
@@ -20,7 +20,9 @@ class CitiesRecycleAdapter() : RecyclerView.Adapter<CitiesRecycleAdapter.CityVie
         itemListener = listener
     }
 
-    private val repositoryCall = Repository()
+    private val repositoryCall = CitiesInfo()
+
+    // var data: List<String> = listOf(repositoryCall.getCities())
     var data: List<String> = repositoryCall.getCities()
 
     class CityViewHolder(itemView: View, listener: OnItemClickListener) :

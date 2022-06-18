@@ -2,11 +2,13 @@ package ru.gb.weatherapp.view
 
 // UI Layer (View)
 
+import android.os.Build
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import ru.gb.weatherapp.R
@@ -36,6 +38,7 @@ class MainFragment : Fragment() {
         binding?.recyclerViewMainFrg?.adapter = adapter
 
         adapter.setOnItemClickListener(object : CitiesRecycleAdapter.OnItemClickListener{
+            @RequiresApi(Build.VERSION_CODES.N)
             override fun onItemClick(position: Int) {
                 viewModel.setCity(position)
                 runItemFragment()
